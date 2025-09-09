@@ -156,3 +156,33 @@ const addToCart = (e) => {
     showCartList(cartList);
   }
 };
+
+const showCartList = (cartList) => {
+  const totalPriceEl = document.getElementById("total-price");
+  let totalPrice = 0;
+  cartContainer.innerHTML = "";
+  cartList.forEach((cart) => {
+    cartContainer.innerHTML += `
+                <div class="bg-[#f0fdf4] p-3 rounded-lg flex justify-between items-center gap-4">
+                    <div>
+                        <h5 class="text-lg font-semibold">${cart.plantName}</h5>
+                        <p class="text-[#889396]">৳${cart.plantPrice} x ${cart.quantity}</p>
+                    </div>
+                    <div class="cursor-pointer" onclick="removeCart('${cart.plantName}')">
+                        <i class="fa-solid fa-xmark"></i>
+                    </div>
+                </div>
+            `;
+    totalPrice += cart.plantPrice * cart.quantity;
+  });
+  totalPriceEl.innerText = totalPrice;
+};
+
+const removeCart = (plantName) => {
+  const filteredCart = cartList.filter((cart) => cart.plantName !== plantName);
+  cartList = filteredCart;
+  showCartList(cartList);
+};
+
+loadAllCategories();
+loadAllPlants();
