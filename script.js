@@ -27,3 +27,10 @@ const showAllCategories = (categories) => {
         `;
   });
 };
+const loadAllPlants = async () => {
+  manageLoader(true);
+  const url = "https://openapi.programming-hero.com/api/plants";
+  const res = await fetch(url);
+  const data = await res.json();
+  showAllPlants(data.plants);
+};
